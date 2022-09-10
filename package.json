@@ -5,13 +5,15 @@
   "main": "dist/main.js",
   "bin": "dist/main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "typeCheck": "tsc --noEmit",
+    "bundle": "node ./bundle.js",
+    "pack": "pkg ."
   },
   "author": "Hexiang Qi <qihexiang@outlook.com>",
   "license": "MIT",
   "devDependencies": {
     "esbuild": "^0.15.7",
-    "pkg": "^5.8.0",
+    "pkg": "^5.5.2",
     "ts-node": "^10.9.1",
     "ts-node-dev": "^2.0.0",
     "typescript": "^4.8.3"
@@ -27,11 +29,15 @@
   "pkg": {
     "scripts": "./dist/main.js",
     "assets": [
+      "./README.md",
+      "node_modules/",
+      "node_modules/selenium-webdriver/",
       "./node_modules/seleinium-webdriver/**/*",
+      "./node_modules/tesseract.js/",
       "./node_modules/tesseract.js/**/*"
     ],
     "targets": [
-      "node16-win-x64"
+      "node16-win-x64", "node16-linux-x64", "node16-win-arm64", "node16-linux-arm64"
     ],
     "outputPath": "./releases"
   }
