@@ -31,6 +31,8 @@ Safari|[SafariDriver](https://developer.apple.com/library/archive/releasenotes/G
 
 在此页面的右侧，找到Release，下载和你的浏览器及驱动架构一致的版本即可，***请确认其所在路径***。
 
+> 目前暂不支持macOS，ARM64架构未经测试
+
 ## Step4：下载OCR识别训练文件
 
 <https://raw.githubusercontent.com/tesseract-ocr/tessdata/main/eng.traineddata>，下载后，将该文件和本软件放在同一个目录下。
