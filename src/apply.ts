@@ -6,10 +6,6 @@ import { recognize } from "./recognize";
 let existedFailedApplies = 0;
 
 export const apply = async (driver: WebDriver, callback: () => void) => {
-  const url = await driver
-    .getCurrentUrl()
-    .then((url) => url.replace("/default/index", "/yggl/xshdbm"));
-  await driver.get(url);
   try {
     const applies = await driver.wait(
       until.elementsLocated(By.linkText("报名")),

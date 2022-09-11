@@ -1,17 +1,31 @@
+import { match } from "assert";
 import { exec } from "child_process";
+import { setTimeout } from "timers/promises";
 import { apply } from "./apply";
 import { CALLBACK, DRIVER, PASSWORD, USERNAME } from "./env";
 import { login } from "./login";
 
-login(DRIVER, USERNAME, PASSWORD)
-    .then(async driver => {
-        while(true) {
-            console.log(`Refreshed at ${new Date()}`)
-            await apply(driver, () => {
-                exec(CALLBACK)
-            })
+(async () => {
+    while (true) {
+        const currentUrl = await DRIVER.getCurrentUrl();
+        const matched = currentUrl.match(/https:\/\/gmis\.buct\.edu\.cn\/(?<session>.*?)\/(?<path>.*)/)
+        if (matched !== null) {
+            if (matched.groups!["path"] === "home/stulogin") {
+                console.log("Try to login in")
+                await login(DRIVER, USERNAME, PASSWORD);
+            } else if (matched.groups!["path"] === "student/yggl/xshdbm") {
+                console.log(`${new Date()} Check if there is new appliable reports`)
+                await apply(DRIVER, CALLBACK)
+            } else {
+                console.log(`Redirect to applying page.`)
+                await DRIVER.get(currentUrl.replace(matched.groups!["path"], "student/yggl/xshdbm"))
+            }
+        } else {
+            console.log("Go for login")
+            await DRIVER.get("https://gmis.buct.edu.cn/home/stulogin")
         }
-    })
+    }
+})()
 
 process.on("exit", () => {
     DRIVER.quit();

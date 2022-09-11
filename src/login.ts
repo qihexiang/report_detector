@@ -11,13 +11,18 @@ export const login = async (
   testTimes = 0
 ): Promise<WebDriver> => {
   try {
-    await driver.get("http://gmis.buct.edu.cn/home/stulogin");
-    await driver.findElement(By.id("UserId")).sendKeys(username);
-    await driver.findElement(By.id("Password")).sendKeys(password);
+    const userIdInput = await driver.findElement(By.id("UserId"))
+    await userIdInput.clear();
+    await userIdInput.sendKeys(username);
+    const passwordInput = await driver.findElement(By.id("Password"))
+    await passwordInput.clear();
+    await passwordInput.sendKeys(password);
     const verifyImage = await driver.findElement(By.id("imgVerifi"));
     const verifyCode = await recognize(verifyImage);
-    await driver.findElement(By.id("VeriCode")).sendKeys(verifyCode);
-    await driver.findElement(By.id("VeriCode")).sendKeys(Key.ENTER);
+    const verifyCodeInput = await driver.findElement(By.id("VeriCode"));
+    await verifyCodeInput.clear()
+    await verifyCodeInput.sendKeys(verifyCode);
+    await verifyCodeInput.sendKeys(Key.ENTER);
     const alert = driver.wait(until.alertIsPresent(), 1000);
     return alert
       .then(async (alertWindow) => {
