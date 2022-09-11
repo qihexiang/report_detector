@@ -1,6 +1,3 @@
-import { match } from "assert";
-import { exec } from "child_process";
-import { setTimeout } from "timers/promises";
 import { apply } from "./apply";
 import { CALLBACK, DRIVER, PASSWORD, USERNAME } from "./env";
 import { login } from "./login";
@@ -14,7 +11,8 @@ import { login } from "./login";
                 console.log("Try to login in")
                 await login(DRIVER, USERNAME, PASSWORD);
             } else if (matched.groups!["path"] === "student/yggl/xshdbm") {
-                console.log(`${new Date()} Check if there is new appliable reports`)
+                console.log(`${new Date()} Check if there is new appliable reports`);
+                await DRIVER.get(currentUrl)
                 await apply(DRIVER, CALLBACK)
             } else {
                 console.log(`Redirect to applying page.`)
