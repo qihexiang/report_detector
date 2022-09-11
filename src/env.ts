@@ -4,7 +4,7 @@ import { createDriver } from "./drivers";
 program
   .requiredOption("-u, --username <username>", "学号")
   .requiredOption("-p, --password <password>", "密码")
-  .option("-b, --browser <browser>", "浏览器，值为：firefox, chrome, edge 或 safari", "firefox")
+  .option("-b, --browser <browser>", "浏览器，可选值为：firefox，chrome，edge或safari", "firefox")
   .option("-r, --retry_interval <ms>", "设置（登录和更换验证码的）重试间隔时间", "500")
   .option(
     "-w, --max_waiting_time <ms>",
