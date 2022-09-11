@@ -12,7 +12,7 @@ program
     "10000"
   )
   .option(
-    "-c --check_interval <ms>",
+    "-c, --check_interval <ms>",
     "设置两次检查是否有新申请之间的间隔时间，实际间隔时间还受到加载等待时间的影响",
     "90000"
   )
