@@ -2,7 +2,7 @@
 
 该程序依赖于特定的浏览器和驱动，可以选择的选项为：
 
-浏览器驱动|驱动官网
+浏览器|驱动
 ---|---
 [Firefox](https://www.mozilla.org/zh-CN/firefox/)|[Geckodriver](https://github.com/mozilla/geckodriver/releases)
 [Chrome](https://www.google.cn/intl/zh-CN/chrome/)|[ChromeDriver](https://chromedriver.chromium.org/)
@@ -31,7 +31,7 @@ Safari|[SafariDriver](https://developer.apple.com/library/archive/releasenotes/G
 
 在此页面的右侧，找到Release，下载和你的浏览器及驱动架构一致的版本即可，***请确认其所在路径***。
 
-> 目前暂不支持macOS，ARM64架构未经测试
+> 由于目前没有arm64架构的设备，arm64架构是在QEMU中交叉编译得来的，可能存在一定的问题。由于macOS平台上打包可执行文件需要macOS的开发环境，若有需要请直接联系我。
 
 ## Step4：下载OCR识别训练文件
 
@@ -53,7 +53,7 @@ Safari|[SafariDriver](https://developer.apple.com/library/archive/releasenotes/G
 
 更多选项：使用--help参数查看命令行帮助。
 
-```Powershell
+```
 Usage: main [options]
 
 Options:
@@ -62,7 +62,7 @@ Options:
   -b, --browser <browser>                 浏览器，值为：firefox, chrome, edge 或 safari (default: "firefox")
   -r, --retry_interval <ms>               设置（登录和更换验证码的）重试间隔时间 (default: "500")
   -w, --max_waiting_time <ms>             设置等待页面上元素加载的最长时间 (default: "10000")
-  -c --check_interval <ms>                设置两次检查是否有新申请之间的间隔时间，实际间隔时间还受到加载等待时间的影响 (default: "90000")
+  -c, --check_interval <ms>                设置两次检查是否有新申请之间的间隔时间，实际间隔时间还受到加载等待时间的影响 (default: "90000")
   -m, --max_retry_times <number>          登录最大重试次数 (default: "3")
   -v, --max_verify_image_change <number>  更换验证码的最大次数 (default: "10")
   -a, --applies_amount <number>           当有多个申请可选时，最大的申请量 (default: "3")
