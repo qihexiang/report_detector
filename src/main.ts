@@ -1,6 +1,7 @@
 import { exec } from "node:child_process";
 import { setTimeout } from "node:timers/promises";
-import { apply } from "./apply";
+import { By } from "selenium-webdriver";
+import { apply, getAvaliableApplies } from "./apply";
 import { CALLBACK, DRIVER, LONG, MARKING, MAX_WAITING_TIME, PASSWORD, RANGE, SHORT, USERNAME } from "./env";
 import { login } from "./login";
 import { rythm } from "./rythm";
@@ -13,15 +14,21 @@ import { rythm } from "./rythm";
             if (matched.groups!["path"] === "home/stulogin") {
                 console.log("Try to login in")
                 await login(DRIVER, USERNAME, PASSWORD);
-            } else if (matched.groups!["path"] === "student/yggl/xshdbm") {
-                console.log(`${new Date()} Check if there is new appliable reports`);
+            } else if (matched.groups!["path"] === "student/yggl/xshdbm_sqlist") {
+                console.log(`Reload at ${new Date()}`)
                 await DRIVER.get(currentUrl)
-                const existedApplies = await apply(DRIVER, () => exec(CALLBACK))
-                let timeout = rythm(RANGE, MARKING, SHORT, LONG)
-                await setTimeout(existedApplies === 0 ? timeout - MAX_WAITING_TIME : timeout);
+                const content = await DRIVER.findElement(By.css("body")).getText();
+                const avaliableList = getAvaliableApplies(content);
+                if(avaliableList.length > 0) {
+                    exec(CALLBACK);
+                    console.log("Redirect to apply page")
+                    await DRIVER.get(currentUrl.replace(matched.groups!["path"], "student/yggl/xshdbm"));
+                    await apply(DRIVER, avaliableList)
+                }
+                await setTimeout(rythm(RANGE, MARKING, SHORT, LONG));
             } else {
-                console.log(`Redirect to applying page.`)
-                await DRIVER.get(currentUrl.replace(matched.groups!["path"], "student/yggl/xshdbm"))
+                console.log(`Redirect to data page.`)
+                await DRIVER.get(currentUrl.replace(matched.groups!["path"], "student/yggl/xshdbm_sqlist"))
             }
         } else {
             console.log("Go for login")

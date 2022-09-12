@@ -1,47 +1,36 @@
-import { By, until, WebDriver, WebElement } from "selenium-webdriver";
-import { MAX_APPLY_NUMBER, MAX_WAITING_TIME } from "./env";
+import { By, until, WebDriver } from "selenium-webdriver";
+import { DRIVER, MAX_WAITING_TIME } from "./env";
 import { recognize } from "./recognize";
 
-let existedFailedApplies = 0;
+const takeIdFromOnClickRE = /show_add\(\"(?<id>[0-9]*?)\"\)/
 
-export const apply = async (driver: WebDriver, callback: () => void) => {
+export const getAvaliableApplies = (data: string) => {
+  const json = JSON.parse(data) as {rows: {id: number, rs: number, bmrs: number}[]}
+  return json.rows.filter(report => report.rs > report.bmrs).map(report => report.id)
+}
+
+export const apply = async (driver: WebDriver, idxList: number[]) => {
   try {
     const applies = await driver.wait(
       until.elementsLocated(By.linkText("报名")),
       MAX_WAITING_TIME
     );
-    let updateApplies: WebElement[] = [];
-    if (applies.length > existedFailedApplies) {
-      console.log("start to apply")
-      callback()
-      console.log("callback finished")
-      for (let i = 0; i < applies.length; i++) {
-        updateApplies = await driver.wait(
-          until.elementsLocated(By.linkText("报名")), MAX_WAITING_TIME
-        );
-        const successed = applies.length - updateApplies.length;
-        if (successed >= MAX_APPLY_NUMBER) {
-          console.log("以达到最大申请数");
-          process.exit(0);
+    for (const apply of applies) {
+      const id = (await apply.getAttribute("onclick")).match(takeIdFromOnClickRE)?.groups?.["id"]
+      if (idxList.includes(Number(id))) {
+        try {
+          await apply.click();
+          console.log("Try to apply")
+          const verifyImage = await driver.findElement(By.id("imgVerifi"));
+          const verifyCode = await recognize(verifyImage);
+          await driver.findElement(By.id("VeriCode")).sendKeys(verifyCode);
+          await driver.findElement(By.linkText("确定")).click();
+        } catch (err) {
+          console.log(err)
         }
-        const apply = updateApplies[i - successed];
-        await apply.click();
-        console.log("Try to apply")
-        const verifyImage = await driver.findElement(By.id("imgVerifi"));
-        const verifyCode = await recognize(verifyImage);
-        await driver.findElement(By.id("VeriCode")).sendKeys(verifyCode);
-        await driver.findElement(By.linkText("确定")).click();
       }
-      existedFailedApplies = updateApplies.length;
-    } else if (applies.length === existedFailedApplies) {
-      console.log(`有${existedFailedApplies}个申请，但均已尝试过并失败了`)
-    } else {
-      console.log(`一些申请消失了`);
-      existedFailedApplies = applies.length
     }
-  } catch(err) {
+  } catch (err) {
     console.log(err)
-    existedFailedApplies = 0
   }
-  return existedFailedApplies;
 };
