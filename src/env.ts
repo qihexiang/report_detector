@@ -12,11 +12,6 @@ program
     "10000"
   )
   .option(
-    "-c, --check_interval <ms>",
-    "设置两次检查是否有新申请之间的间隔时间，实际间隔时间还受到加载等待时间的影响",
-    "90000"
-  )
-  .option(
     "-m, --max_retry_times <number>",
     "登录最大重试次数",
     "3"
@@ -28,6 +23,10 @@ program
   )
   .option("-a, --applies_amount <number>", "当有多个申请可选时，最大的申请量", "3")
   .option("-f, --callback <command>", "传入一个命令，在发现有新的申请时被执行")
+  .option("-M, --marking", "设置一个快慢周期标度，例如每半个小时作为一个标度，设置为1800000", "1800000")
+  .option("-R, --range", "设置快速段的长度，例如标度前5分钟，设置为300000", "300000")
+  .option("-S, --short", "设置快速段检查频率，例如5秒设置为5000", "5000")
+  .option("-L, --long", "设置慢速段检查频率，例如60秒60000", "60000")
   .parse();
 
 const result = program.opts();
@@ -40,8 +39,11 @@ export const RETRY_INTERVAL = str2Num(result["retry_interval"]);
 export const MAX_RETRY_TIMES = str2Num(result["max_retry_times"]);
 export const MAX_VERIFY_IMAGE_CHANGE = str2Num(result["max_verify_image_change"]);
 export const MAX_WAITING_TIME = str2Num(result["max_waiting_time"]);
-export const CHECK_INTERNVAL = str2Num(result["check_interval"]);
 export const MAX_APPLY_NUMBER = str2Num(result["applies_amount"]);
+export const RANGE = str2Num(result["range"]);
+export const MARKING = str2Num(result["marking"]);
+export const SHORT = str2Num(result["short"]);
+export const LONG = str2Num(result["long"]);
 export const DRIVER = createDriver(result["browser"]);
 export const CALLBACK = result["callback"];
 export const USERNAME = result["username"];

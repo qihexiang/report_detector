@@ -1,6 +1,5 @@
-import { setTimeout } from "node:timers/promises";
 import { By, until, WebDriver, WebElement } from "selenium-webdriver";
-import { CHECK_INTERNVAL, MAX_APPLY_NUMBER, MAX_WAITING_TIME } from "./env";
+import { MAX_APPLY_NUMBER, MAX_WAITING_TIME } from "./env";
 import { recognize } from "./recognize";
 
 let existedFailedApplies = 0;
@@ -44,6 +43,5 @@ export const apply = async (driver: WebDriver, callback: () => void) => {
     console.log(err)
     existedFailedApplies = 0
   }
-  await setTimeout(CHECK_INTERNVAL);
-  return driver;
+  return existedFailedApplies;
 };
