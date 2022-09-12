@@ -1,3 +1,4 @@
+import { exec } from "node:child_process";
 import { apply } from "./apply";
 import { CALLBACK, DRIVER, PASSWORD, USERNAME } from "./env";
 import { login } from "./login";
@@ -13,7 +14,7 @@ import { login } from "./login";
             } else if (matched.groups!["path"] === "student/yggl/xshdbm") {
                 console.log(`${new Date()} Check if there is new appliable reports`);
                 await DRIVER.get(currentUrl)
-                await apply(DRIVER, CALLBACK)
+                await apply(DRIVER, () => exec(CALLBACK))
             } else {
                 console.log(`Redirect to applying page.`)
                 await DRIVER.get(currentUrl.replace(matched.groups!["path"], "student/yggl/xshdbm"))
@@ -25,6 +26,6 @@ import { login } from "./login";
     }
 })()
 
-process.on("exit", () => {
+process.on("SIGKILL", () => {
     DRIVER.quit();
 })
