@@ -27,22 +27,20 @@ Safari|[SafariDriver](https://developer.apple.com/library/archive/releasenotes/G
 
 此时，右键点击开始菜单，选择“终端”（Windows 11）或“Windows Powershell”（Windows 10），在弹出框中输入geckodriver.exe，并按下回车，应该能看到类似于`1662814628157   geckodriver     INFO    Listening on 127.0.0.1:4444`这样的输出，此时配置已经完成，关闭窗口即可。
 
-## Step3：下载Report Detector
+## Step3：拉取本仓库
 
-在此页面的右侧，找到Release，下载和你的浏览器及驱动架构一致的版本即可，***请确认其所在路径***。
-
-> 由于目前没有arm64架构的设备，arm64架构是在QEMU中交叉编译得来的，可能存在一定的问题。由于macOS平台上打包可执行文件需要macOS的开发环境，若有需要请直接联系我。
+使用Git克隆此仓库或直接下载均可，完成后，使用NPM安装项目依赖，完成后，进行打包`npm run bundle`
 
 ## Step4：下载OCR识别训练文件
 
-<https://raw.githubusercontent.com/tesseract-ocr/tessdata/main/eng.traineddata>，下载后，将该文件和本软件放在同一个目录下。
+<https://raw.githubusercontent.com/tesseract-ocr/tessdata/main/eng.traineddata>，下载后，将该文件和本项目放在目录下。
 
 ## Step5：启动软件
 
-对于Windows 11，直接在软件和OCR识别文件所在目录下，点击右键，选择“在终端中打开”，然后输入“.\程序文件名.exe -u 学号 -p 密码 -b 浏览器的名字”来启动程序。例如
+ `npm run start -u 学号 -p 密码 -b 浏览器的名字`来启动程序。例如
 
 ```Powershell
-.\report_detector-win-x64.exe -u 2021114514 -p "hx#114514" -b firefox
+npm run start -u 2021114514 -p "hx#114514" -b firefox
 ```
 
 注意密码中若有特殊字符，则必须用英文双引号进行包裹，若密码中有英文双引号，则在其前方加入反引号进行转义，更复杂的转义请自行研究；而学号和浏览器名称由于是纯数字和字母，则可以不必这么做。
@@ -78,7 +76,7 @@ Options:
 --callback参数是十分有用的，本程序不能确保总是正确的选择讲座/输入验证码/等待页面加载，你可以通过这个参数来执行一些系统命令来发出提示，例如当系统中有foobar2000播放器时（需要先将foobar2000路径添加到PATH），你可以这样来提醒你手动申请学术报告：
 
 ```Powershell
-.\report_detector-win-x64.exe -u 2021114514 -p "hx#114514" -b firefox -f "foobar2000 alert.mp3"
+npm run start -u 2021114514 -p "hx#114514" -b firefox -f "foobar2000 alert.mp3"
 ```
 
 > 在Windows中，这个命令是通过CMD执行的，一些Powershell的专属命令是无效的，请提前确认其在CMD中的执行效果。
