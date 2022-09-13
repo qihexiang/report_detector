@@ -7,7 +7,9 @@
   "scripts": {
     "typeCheck": "tsc --noEmit",
     "bundle": "node ./bundle.js",
-    "pack": "pkg ."
+    "pack": "pkg .",
+    "dev": "tsnd src/main.ts",
+    "start": "node src/main.js"
   },
   "author": "Hexiang Qi <qihexiang@outlook.com>",
   "license": "MIT",
