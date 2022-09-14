@@ -3,9 +3,11 @@ import { setTimeout } from "node:timers/promises";
 import { By } from "selenium-webdriver";
 import { apply, getAvaliableApplies } from "./apply";
 import { createDriver } from "./drivers";
-import { BROWSER, CALLBACK, LONG, MARKING, MAX_WAITING_TIME, PASSWORD, RANGE, SHORT, USERNAME } from "./env";
+import { BROWSER, CALLBACK, LONG, MARKING, MAX_RESTART, PASSWORD, RANGE, SHORT, USERNAME } from "./env";
 import { login } from "./login";
 import { rythm } from "./rythm";
+
+let restarted = 0;
 
 export let DRIVER = createDriver(BROWSER);
 
@@ -40,9 +42,15 @@ export let DRIVER = createDriver(BROWSER);
             }
         } catch (err) {
             console.log(err);
-            console.log("Restart Browser")
-            DRIVER.quit();
-            DRIVER = createDriver(BROWSER);
+            if (restarted <= MAX_RESTART) {
+                console.log("Restart Browser")
+                DRIVER.quit();
+                DRIVER = createDriver(BROWSER);
+                restarted += 1;
+            } else {
+                console.log("Max restart times meet.")
+                process.exit(1)
+            }
         }
     }
 })()

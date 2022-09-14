@@ -21,6 +21,9 @@ program
     "更换验证码的最大次数",
     "10"
   )
+  .option(
+    "-e, --max_restart <number>", "最大重启次数", "5"
+  )
   .option("-a, --applies_amount <number>", "当有多个申请可选时，最大的申请量", "3")
   .option("-f, --callback <command>", "传入一个命令，在发现有新的申请时被执行")
   .option("-M, --marking <ms>", "设置一个快慢周期标度，例如每半个小时作为一个标度，设置为1800000", "1800000")
@@ -32,7 +35,12 @@ program
 const result = program.opts();
 
 const str2Num = (str: string) => {
-  return Number(str);
+  try {
+    return parseInt(str,10);
+  } catch(err) {
+    console.log(err);
+    process.exit(1)
+  }
 };
 
 export const RETRY_INTERVAL = str2Num(result["retry_interval"]);
@@ -40,6 +48,7 @@ export const MAX_RETRY_TIMES = str2Num(result["max_retry_times"]);
 export const MAX_VERIFY_IMAGE_CHANGE = str2Num(result["max_verify_image_change"]);
 export const MAX_WAITING_TIME = str2Num(result["max_waiting_time"]);
 export const MAX_APPLY_NUMBER = str2Num(result["applies_amount"]);
+export const MAX_RESTART = str2Num(result["max_restart"]);
 export const RANGE = str2Num(result["range"]);
 export const MARKING = str2Num(result["marking"]);
 export const SHORT = str2Num(result["short"]);
