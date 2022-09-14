@@ -32,15 +32,17 @@ export const login = async (
             await setTimeout(RETRY_INTERVAL);
             return login(driver, username, password, testTimes + 1);
           } else {
-            throw new Error("失败超过五次，请检查网络连接");
+            console.log("失败超过五次，请检查网络连接");
+            process.exit(1)
           }
         } else {
-          throw new Error("请检查用户名或密码");
+          console.log("请检查用户名和密码");
+          process.exit(1)
         }
       })
       .catch(err => driver);
   } catch (err) {
     console.log(err);
-    throw new Error("Failed to start driver");
+    process.exit(1)
   }
 };
