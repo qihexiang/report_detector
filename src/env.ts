@@ -5,6 +5,7 @@ program
   .requiredOption("-u, --username <username>", "学号")
   .requiredOption("-p, --password <password>", "密码")
   .option("-b, --browser <browser>", "浏览器，可选值为：firefox，chrome，edge或safari", "firefox")
+  .option("-h, --headless", "开启headless模式(不显示浏览器界面，可用于各类单片机上)")
   .option("-r, --retry_interval <ms>", "设置（登录和更换验证码的）重试间隔时间", "500")
   .option(
     "-w, --max_waiting_time <ms>",
@@ -44,7 +45,8 @@ export const RANGE = str2Num(result["range"]);
 export const MARKING = str2Num(result["marking"]);
 export const SHORT = str2Num(result["short"]);
 export const LONG = str2Num(result["long"]);
-export const DRIVER = createDriver(result["browser"]);
-export const CALLBACK = result["callback"];
-export const USERNAME = result["username"];
-export const PASSWORD = result["password"];
+export const BROWSER: string = result["browser"];
+export const CALLBACK: string = result["callback"];
+export const USERNAME: string = result["username"];
+export const PASSWORD: string = result["password"];
+export const HEADLESS: boolean = result["headless"];

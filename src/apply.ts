@@ -1,5 +1,5 @@
 import { By, until, WebDriver } from "selenium-webdriver";
-import { DRIVER, MAX_WAITING_TIME } from "./env";
+import { MAX_WAITING_TIME } from "./env";
 import { recognize } from "./recognize";
 
 const takeIdFromOnClickRE = /show_add\(\"(?<id>[0-9]*?)\"\)/

@@ -2,9 +2,12 @@ import { exec } from "node:child_process";
 import { setTimeout } from "node:timers/promises";
 import { By } from "selenium-webdriver";
 import { apply, getAvaliableApplies } from "./apply";
-import { CALLBACK, DRIVER, LONG, MARKING, MAX_WAITING_TIME, PASSWORD, RANGE, SHORT, USERNAME } from "./env";
+import { createDriver } from "./drivers";
+import { BROWSER, CALLBACK, LONG, MARKING, PASSWORD, RANGE, SHORT, USERNAME } from "./env";
 import { login } from "./login";
 import { rythm } from "./rythm";
+
+export const DRIVER = createDriver(BROWSER);
 
 (async () => {
     while (true) {
