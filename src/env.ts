@@ -1,5 +1,4 @@
 import { program } from "commander";
-import { createDriver } from "./drivers";
 
 program
   .requiredOption("-u, --username <username>", "学号")
