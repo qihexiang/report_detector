@@ -37,10 +37,10 @@ Safari|[SafariDriver](https://developer.apple.com/library/archive/releasenotes/G
 
 ## Step5：启动软件
 
- `npm run start -u 学号 -p 密码 -b 浏览器的名字`来启动程序。例如
+ `npm run start -- -u 学号 -p 密码 -b 浏览器的名字`来启动程序。例如
 
 ```Powershell
-npm run start -u 2021114514 -p "hx#114514" -b firefox
+npm run start -- -u 2021114514 -p "hx#114514" -b firefox
 ```
 
 注意密码中若有特殊字符，则必须用英文双引号进行包裹，若密码中有英文双引号，则在其前方加入反引号进行转义，更复杂的转义请自行研究；而学号和浏览器名称由于是纯数字和字母，则可以不必这么做。
@@ -76,7 +76,7 @@ Options:
 --callback参数是十分有用的，本程序不能确保总是正确的选择讲座/输入验证码/等待页面加载，你可以通过这个参数来执行一些系统命令来发出提示，例如当系统中有foobar2000播放器时（需要先将foobar2000路径添加到PATH），你可以这样来提醒你手动申请学术报告：
 
 ```Powershell
-npm run start -u 2021114514 -p "hx#114514" -b firefox -f "foobar2000 alert.mp3"
+npm run start -- -u 2021114514 -p "hx#114514" -b firefox -f "foobar2000 alert.mp3"
 ```
 
 > 在Windows中，这个命令是通过CMD执行的，一些Powershell的专属命令是无效的，请提前确认其在CMD中的执行效果。
