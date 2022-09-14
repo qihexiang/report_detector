@@ -3,6 +3,7 @@
 ## 依赖项目
 
 运行时：Node.js >= 16
+
 浏览器和驱动（任一）：
   - Firefox和Geckdriver
   - Chrome/Chromium和Chromedriver
