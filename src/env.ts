@@ -25,7 +25,7 @@ program
     "-e, --max_restart <number>", "最大重启次数", "5"
   )
   .option("-a, --applies_amount <number>", "当有多个申请可选时，最大的申请量", "3")
-  .option("-f, --callback <command>", "传入一个命令，在发现有新的申请时被执行")
+  .option("-f, --callback <command>", "传入一个命令，在发现有新的申请时被执行", "echo 发现了新讲座")
   .option("-M, --marking <ms>", "设置一个快慢周期标度，例如每半个小时作为一个标度，设置为1800000", "1800000")
   .option("-R, --range <ms>", "设置快速段的长度，例如标度前5分钟，设置为300000", "300000")
   .option("-S, --short <ms>", "设置快速段检查频率，例如5秒设置为5000", "5000")
