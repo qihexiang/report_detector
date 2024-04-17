@@ -55,6 +55,6 @@ export let DRIVER = createDriver(BROWSER);
     }
 })()
 
-process.on("SIGKILL", () => {
-    DRIVER.quit();
-})
+// process.on("SIGKILL", () => {
+//     DRIVER.quit();
+// })

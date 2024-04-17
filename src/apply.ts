@@ -2,7 +2,7 @@ import { By, until, WebDriver } from "selenium-webdriver";
 import { MAX_WAITING_TIME } from "./env";
 import { recognize } from "./recognize";
 
-const takeIdFromOnClickRE = /show_add\(\"(?<id>[0-9]*?)\"\)/
+const takeIdFromOnClickRE = /.*\(\"(?<id>[0-9]*?)\"\)/
 
 export const getAvaliableApplies = (data: string) => {
   const json = JSON.parse(data) as {rows: {id: number, rs: number, bmrs: number}[]}
@@ -15,6 +15,7 @@ export const apply = async (driver: WebDriver, idxList: number[]) => {
       until.elementsLocated(By.linkText("报名")),
       MAX_WAITING_TIME
     );
+    console.log(idxList)
     for (const apply of applies) {
       const id = (await apply.getAttribute("onclick")).match(takeIdFromOnClickRE)?.groups?.["id"]
       if (idxList.includes(Number(id))) {
@@ -27,6 +28,7 @@ export const apply = async (driver: WebDriver, idxList: number[]) => {
           await driver.findElement(By.linkText("确定")).click();
         } catch (err) {
           console.log(err)
+          await driver.findElement(By.linkText("确定")).click();
         }
       }
     }

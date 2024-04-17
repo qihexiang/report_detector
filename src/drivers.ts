@@ -10,18 +10,18 @@ export function createDriver(
   const builder = new Builder();
   if (browser === "firefox") {
     const option = new FirefoxOptions()
-    if (HEADLESS) option.headless();
+    if (HEADLESS) option.addArguments("-headless");
     return builder.forBrowser(Browser.FIREFOX).setFirefoxOptions(option).build();
   } else if (browser === "chrome") {
     const option = new ChromeOptions();
-    if (HEADLESS) option.headless();
+    if (HEADLESS) option.addArguments("-headless");
     return builder.forBrowser(Browser.CHROME).build();
   } else if (browser === "safari") {
     if (HEADLESS) console.log("Safari does not support headless mode");
     return builder.forBrowser(Browser.SAFARI).build();
   } else if (browser === "edge") {
     const option = new Options();
-    if (HEADLESS) option.headless();
+    if (HEADLESS) option.addArguments("-headless");
     return builder.forBrowser(Browser.EDGE).build();    
   } else {
     throw new Error(
