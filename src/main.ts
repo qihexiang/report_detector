@@ -11,6 +11,10 @@ let restarted = 0;
 
 export let DRIVER = createDriver(BROWSER);
 
+// const channel = "xshdbm";
+const channel = "zyzfwbm";
+console.log(channel);
+
 (async () => {
     while (true) {
         try {
@@ -20,7 +24,7 @@ export let DRIVER = createDriver(BROWSER);
                 if (matched.groups!["path"] === "home/stulogin") {
                     console.log("Try to login in")
                     await login(DRIVER, USERNAME, PASSWORD);
-                } else if (matched.groups!["path"] === "student/yggl/xshdbm_sqlist") {
+                } else if (matched.groups!["path"] === `student/yggl/${channel}_sqlist`) {
                     console.log(`Reload at ${new Date()}`)
                     await DRIVER.get(currentUrl)
                     const content = await DRIVER.findElement(By.css("body")).getText();
@@ -28,13 +32,13 @@ export let DRIVER = createDriver(BROWSER);
                     if (avaliableList.length > 0) {
                         exec(CALLBACK);
                         console.log("Redirect to apply page")
-                        await DRIVER.get(currentUrl.replace(matched.groups!["path"], "student/yggl/xshdbm"));
+                        await DRIVER.get(currentUrl.replace(matched.groups!["path"], `student/yggl/${channel}`));
                         await apply(DRIVER, avaliableList)
                     }
                     await setTimeout(rythm(RANGE, MARKING, SHORT, LONG));
                 } else {
                     console.log(`Redirect to data page.`)
-                    await DRIVER.get(currentUrl.replace(matched.groups!["path"], "student/yggl/xshdbm_sqlist"))
+                    await DRIVER.get(currentUrl.replace(matched.groups!["path"], `student/yggl/${channel}_sqlist`))
                 }
             } else {
                 console.log("Go for login")
