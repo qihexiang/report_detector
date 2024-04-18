@@ -3,6 +3,7 @@ import { program } from "commander";
 program
   .requiredOption("-u, --username <username>", "学号")
   .requiredOption("-p, --password <password>", "密码")
+  .option("-c, --channel <channel>", "选择通道", "xshdbm")
   .option("-b, --browser <browser>", "浏览器，可选值为：firefox，chrome，edge或safari", "firefox")
   .option("-h, --headless", "开启headless模式(不显示浏览器界面，可用于各类单片机上)")
   .option("-r, --retry_interval <ms>", "设置（登录和更换验证码的）重试间隔时间", "500")
@@ -34,6 +35,8 @@ program
 
 const result = program.opts();
 
+console.log(result)
+
 const str2Num = (str: string) => {
   try {
     return parseInt(str,10);
@@ -58,3 +61,4 @@ export const CALLBACK: string = result["callback"];
 export const USERNAME: string = result["username"];
 export const PASSWORD: string = result["password"];
 export const HEADLESS: boolean = result["headless"];
+export const CHANNEL: string = result["channel"]
