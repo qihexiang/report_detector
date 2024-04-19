@@ -1,5 +1,5 @@
 import { By, until, WebDriver } from "selenium-webdriver";
-import { MAX_WAITING_TIME } from "./env";
+import { MAX_RETRY_TIMES, MAX_WAITING_TIME } from "./env";
 import { recognize } from "./recognize";
 
 const takeIdFromOnClickRE = /.*\(\"(?<id>[0-9]*?)\"\)/;
@@ -20,7 +20,9 @@ export const apply = async (driver: WebDriver, idxList: number[]) => {
       until.elementsLocated(By.linkText("报名")),
       MAX_WAITING_TIME
     );
-    while (applies.length > 0) {
+    let tried = 1;
+    while (applies.length > 0 && tried <= MAX_RETRY_TIMES) {
+      tried += 1;
       for (const apply of applies) {
         const id = (await apply.getAttribute("onclick")).match(
           takeIdFromOnClickRE

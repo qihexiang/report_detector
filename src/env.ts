@@ -15,7 +15,7 @@ program
   .option(
     "-m, --max_retry_times <number>",
     "登录最大重试次数",
-    "3"
+    "10"
   )
   .option(
     "-v, --max_verify_image_change <number>",
