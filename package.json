@@ -5,9 +5,8 @@
   "main": "dist/main.js",
   "bin": "dist/main.js",
   "scripts": {
-    "typeCheck": "tsc --noEmit",
-    "bundle": "node ./bundle.js",
-    "pack": "pkg .",
+    "type-check": "tsc --noEmit",
+    "build": "node ./bundle.js",
     "dev": "tsnd src/main.ts",
     "start": "node dist/main.js"
   },
@@ -18,7 +17,6 @@
     "@types/selenium-webdriver": "^4.1.22",
     "esbuild": "^0.15.18",
     "esbuild-node-externals": "^1.13.0",
-    "pkg": "^5.8.1",
     "ts-node": "^10.9.2",
     "ts-node-dev": "^2.0.0",
     "typescript": "^4.9.5"
@@ -27,15 +25,5 @@
     "commander": "^9.5.0",
     "selenium-webdriver": "^4.19.0",
     "tesseract.js": "^5.0.5"
-  },
-  "pkg": {
-    "scripts": "./dist/main.js",
-    "assets": [
-      "./README.md",
-      "./node_modules/selenium-webdriver/",
-      "./node_modules/tesseract.js/"
-    ],
-    "compress": "Brotil",
-    "outputPath": "./releases"
   }
 }
