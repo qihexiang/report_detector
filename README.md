@@ -10,7 +10,7 @@
   - Microsoft Edge和EdgeDriver
   - Safari和SafariDriver
 
-Node.js安装完成后请检查npm命令是否能在命令行中正常工作，若不能，请重新设置Windows Powershell的执行策略(Execution-Policy)。
+Node.js安装完成后请检查npm命令是否能在命令行中正常工作，若不能，请重新设置Windows Powershell的执行策略[Execution-Policy](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.security/set-executionpolicy?view=powershell-7.4)。
 
 浏览器驱动所在的目录需要被添加到环境变量的PATH中才能正常工作。
 
@@ -22,13 +22,14 @@ Node.js安装完成后请检查npm命令是否能在命令行中正常工作，�
 
 ## NPM脚本
 
+> 先在当前目录中执行`npm install`之后，再运行下面脚本
+
 |名称|作用|例子|
 |---|---|---|
 |dev|开发模式启动程序|npm run dev -- -u 20212001958 -p "BUCT@1958"|
-|typeCheck|检查代码类型错误|npm run typeCheck|
-|bundle|将src目录下的代码打包合并为dist/main.js|npm run bundle|
+|type-check|检查代码类型错误|npm run type-check|
+|build|将src目录下的代码打包合并为dist/main.js，**使用start**脚本前必须先执行这个命令|npm run build|
 |start|以正常模式启动程序(dist/main.js)|npm run start -- -u 20212001958 -p "BUCT@1958"|
-|pack|将代码打包成二进制文件(具体细节请修改package.json中pkg节)|npm run pack|
 
 > 例子中，`dev`和`start`没有指定所用浏览器，默认使用的是Firefox
 
@@ -40,7 +41,7 @@ Usage: main [options]
 Options:
   -u, --username <username>               学号
   -p, --password <password>               密码
-  -c, --channel <channel>                 选择通道 (default: "xshdbm")
+  -c, --channel <channel>                 选择通道，学术报告是xshdbm，志愿是zyzfwbm (default: "xshdbm")
   -b, --browser <browser>                 浏览器，可选值为：firefox，chrome，edge或safari (default: "firefox")
   -h, --headless                          开启headless模式(不显示浏览器界面，可用于各类单片机上)
   -r, --retry_interval <ms>               设置（登录和更换验证码的）重试间隔时间 (default: "500")
