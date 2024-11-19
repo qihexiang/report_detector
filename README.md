@@ -40,18 +40,21 @@ Usage: main [options]
 Options:
   -u, --username <username>               学号
   -p, --password <password>               密码
-  -b, --browser <browser>                 浏览器，可选值为：firefox，chrome，edge或safari (default: "firefox")      
+  -c, --channel <channel>                 选择通道 (default: "xshdbm")
+  -b, --browser <browser>                 浏览器，可选值为：firefox，chrome，edge或safari (default: "firefox")
+  -h, --headless                          开启headless模式(不显示浏览器界面，可用于各类单片机上)
   -r, --retry_interval <ms>               设置（登录和更换验证码的）重试间隔时间 (default: "500")
   -w, --max_waiting_time <ms>             设置等待页面上元素加载的最长时间 (default: "10000")
-  -m, --max_retry_times <number>          登录最大重试次数 (default: "3")
+  -m, --max_retry_times <number>          登录最大重试次数 (default: "10")
   -v, --max_verify_image_change <number>  更换验证码的最大次数 (default: "10")
+  -e, --max_restart <number>              最大重启次数 (default: "5")
   -a, --applies_amount <number>           当有多个申请可选时，最大的申请量 (default: "3")
-  -f, --callback <command>                传入一个命令，在发现有新的申请时被执行
+  -f, --callback <command>                传入一个命令，在发现有新的申请时被执行 (default: "echo 发现了新讲座")
   -M, --marking <ms>                      设置一个快慢周期标度，例如每半个小时作为一个标度，设置为1800000 (default: "1800000")
-  -R, --range <ms>                        设置快速段的长度，例如标度前5分钟，设置为300000 (default: "300000")       
+  -R, --range <ms>                        设置快速段的长度，例如标度前5分钟，设置为300000 (default: "300000")
   -S, --short <ms>                        设置快速段检查频率，例如5秒设置为5000 (default: "5000")
   -L, --long <ms>                         设置慢速段检查频率，例如60秒60000 (default: "60000")
-  -h, --help                              display help for command
+  --help                                  display help for command
 ```
 
 注意，所有的时间参数单位均为毫秒，使用时应该设置合理的值。
