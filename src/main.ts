@@ -16,11 +16,12 @@ console.log(`Current channel is : ${CHANNEL}`);
     while (true) {
         try {
             const currentUrl = await DRIVER.getCurrentUrl();
-            const matched = currentUrl.match(/https:\/\/gmis\.buct\.edu\.cn\/(?<session>.*?)\/(?<path>.*)/)
+            const matched = currentUrl.match(/https:\/\/gmis\.buct\.edu\.cn\/(?<path>.*)/)
             if (matched !== null) {
                 if (matched.groups!["path"] === "home/stulogin") {
                     console.log("Try to login in")
                     await login(DRIVER, USERNAME, PASSWORD);
+                    console.log("Logged in")
                 } else if (matched.groups!["path"] === `student/yggl/${CHANNEL}_sqlist`) {
                     console.log(`Reload at ${new Date()}`)
                     await DRIVER.get(currentUrl)
